@@ -8,6 +8,17 @@
     
   tasks:
 
+    - name: Ensure pip is installed
+      apt:
+        name: python3-pip
+        state: present
+
+    - name: Install passlib using pip
+      pip:
+        name: passlib
+        state: present
+        executable: pip3
+
     - name: Create a new user
       user:
         name: ansible  # Replace with desired username
