@@ -2,6 +2,7 @@
 - name: Create a user with sudo privileges
   hosts: all
   become: yes
+  remote_user: cvadmin
   vars_files:
     - ansible_user_pass.yml
     
