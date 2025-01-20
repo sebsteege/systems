@@ -1,0 +1,29 @@
+---
+- name: Create a user with sudo privileges
+  hosts: all
+  become: yes
+  vars_files:
+    - ansible_user_pass.yml
+    
+  tasks:
+
+    - name: Create a new user
+      user:
+        name: ansible  # Replace with desired username
+        password: "{{ my_password | password_hash('sha512') }}"  # Replace 'your_password' with the actual password
+        shell: /bin/bash
+        state: present
+        
+    - name: Add user to sudo group
+      user:
+        name: ansible
+        groups: sudo
+        append: yes
+
+    - name: Allow passwordless sudo for the user (Debian/Ubuntu)
+      lineinfile:
+        path: /etc/sudoers
+        state: present
+        regexp: '^ansible'
+        line: 'ansible ALL=(ALL) NOPASSWD:ALL'
+        validate: '/usr/sbin/visudo -cf %s'
