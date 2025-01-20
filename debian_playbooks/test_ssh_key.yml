@@ -2,6 +2,7 @@
 - name: Test SSH key-based authentication
   hosts: all
   gather_facts: false
+  remote_user: ansible
   vars:
     ssh_user: ansible # Replace with the username used for SSH
     ssh_private_key: "/home/{{ ssh_user }}/.ssh/id_rsa"  # Path to the private key
