@@ -5,7 +5,9 @@
   remote_user: cvadmin
   vars_files:
     - ansible_user_pass.yml
-    
+  vars:
+    - ssh_key_file: "/home/{{ username }}/.ssh/id_rsa"
+    - username: ansible
   tasks:
 
     - name: Ensure pip is installed
@@ -22,14 +24,14 @@
 
     - name: Create a new user
       user:
-        name: ansible  # Replace with desired username
+        name: "{{ username }}"  # Replace with desired username
         password: "{{ my_password | password_hash('sha512') }}"  # Replace 'your_password' with the actual password
         shell: /bin/bash
         state: present
         
     - name: Add user to sudo group
       user:
-        name: ansible
+        name: "{{ username }}"
         groups: sudo
         append: yes
 
@@ -37,6 +39,40 @@
       lineinfile:
         path: /etc/sudoers
         state: present
-        regexp: '^ansible'
-        line: 'ansible ALL=(ALL) NOPASSWD:ALL'
+        regexp: '^{{ username }}'
+        line: '{{ username }} ALL=(ALL) NOPASSWD:ALL'
         validate: '/usr/sbin/visudo -cf %s'
+
+    - name: Ensure the .ssh directory exists
+      file:
+        path: "/home/{{ username }}/.ssh"
+        state: directory
+        mode: "0700"
+        owner: "{{ username }}"
+        group: "{{ username }}"
+
+    - name: Generate SSH key pair if not present
+      openssh_keypair:
+        path: "{{ ssh_key_file }}"
+        type: rsa
+        size: 2048
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "0600"
+      register: ssh_key_result
+
+    - name: Display the public key if newly created
+      debug:
+        msg: "New SSH public key created: {{ ssh_key_result.public_key }}"
+      when: ssh_key_result.changed
+
+    - name: Gather public key content
+      slurp:
+        src: "{{ ssh_key_file }}.pub"
+      register: public_key
+
+    - name: Add public key to authorized_keys on remote hosts
+      authorized_key:
+        user: "{{ username }}"
+        key: "{{ public_key['content'] | b64decode }}"
+        state: present
