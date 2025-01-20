@@ -1,0 +1,28 @@
+---
+- name: Test SSH key-based authentication
+  hosts: all
+  gather_facts: false
+  vars:
+    ssh_user: ansible # Replace with the username used for SSH
+    ssh_private_key: "/home/{{ ssh_user }}/.ssh/id_rsa"  # Path to the private key
+
+  tasks:
+    - name: Test SSH connection
+      ansible.builtin.command:
+        cmd: "echo 'SSH key-based authentication succeeded on {{ inventory_hostname }}'"
+      delegate_to: "{{ inventory_hostname }}"
+      register: ssh_test_result
+      become: false
+      environment:
+        ANSIBLE_PRIVATE_KEY_FILE: "{{ ssh_private_key }}"
+        ANSIBLE_REMOTE_USER: "{{ ssh_user }}"
+
+    - name: Report SSH connection status
+      debug:
+        msg: "SUCCESS: {{ ssh_test_result.stdout }}"
+      when: ssh_test_result is succeeded
+
+    - name: Report SSH connection failure
+      debug:
+        msg: "FAILED: Could not establish SSH key-based authentication to {{ inventory_hostname }}"
+      when: ssh_test_result is not succeeded
