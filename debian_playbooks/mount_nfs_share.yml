@@ -1,7 +1,7 @@
 - name: Disable password-based SSH access and enable public key authentication
   hosts: all
   become: true
-
+  gather_facts: False
 
   tasks:
 
@@ -10,7 +10,7 @@
         path: /mnt/truenas
         state: directory
         mode: '0755'
-  
+
     - name: Mount NFS volumes with noauto according to boot option
       ansible.posix.mount:
         src: 192.168.100.17:/mnt/Volume-01/Docker

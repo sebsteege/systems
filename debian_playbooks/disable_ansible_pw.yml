@@ -6,6 +6,7 @@
 - name: Disable password-based SSH access and enable public key authentication
   hosts: all
   become: true
+  gather_facts: False
 
   tasks:
 
