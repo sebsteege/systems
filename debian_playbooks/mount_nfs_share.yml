@@ -5,6 +5,11 @@
 
   tasks:
 
+    - name: Ensure nfs-common is installed
+      apt:
+        name: nfs-common 
+        state: present
+
     - name: Create a directory if it does not exist
       ansible.builtin.file:
         path: /mnt/truenas
