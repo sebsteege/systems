@@ -9,33 +9,13 @@
 
   tasks:
 
-    - name: Ensure PasswordAuthentication is disabled
-      lineinfile:
+    - name: Add Match block to sshd_config for ansible user
+      blockinfile:
         path: /etc/ssh/sshd_config
-        regexp: '^#?PasswordAuthentication'
-        line: 'PasswordAuthentication yes'
-        state: present
-
-    - name: Ensure PubkeyAuthentication is enabled
-      lineinfile:
-        path: /etc/ssh/sshd_config
-        regexp: '^#?PubkeyAuthentication'
-        line: 'PubkeyAuthentication yes'
-        state: present
-
-    - name: Ensure ChallengeResponseAuthentication is disabled
-      lineinfile:
-        path: /etc/ssh/sshd_config
-        regexp: '^#?ChallengeResponseAuthentication'
-        line: 'ChallengeResponseAuthentication yes'
-        state: present
-
-    - name: Ensure UsePAM is disabled
-      lineinfile:
-        path: /etc/ssh/sshd_config
-        regexp: '^#?UsePAM'
-        line: 'UsePAM yes'
-        state: present
+        marker: "# BEGIN ansible settings"
+        block: |
+          Match User ansible
+            PasswordAuthentication no
 
     - name: Restart SSH service to apply changes
       service:
