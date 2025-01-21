@@ -13,7 +13,7 @@
       lineinfile:
         path: /etc/ssh/sshd_config
         regexp: '^#?PasswordAuthentication'
-        line: 'PasswordAuthentication no'
+        line: 'PasswordAuthentication yes'
         state: present
 
     - name: Ensure PubkeyAuthentication is enabled
@@ -27,14 +27,14 @@
       lineinfile:
         path: /etc/ssh/sshd_config
         regexp: '^#?ChallengeResponseAuthentication'
-        line: 'ChallengeResponseAuthentication no'
+        line: 'ChallengeResponseAuthentication yes'
         state: present
 
     - name: Ensure UsePAM is disabled
       lineinfile:
         path: /etc/ssh/sshd_config
         regexp: '^#?UsePAM'
-        line: 'UsePAM no'
+        line: 'UsePAM yes'
         state: present
 
     - name: Restart SSH service to apply changes
