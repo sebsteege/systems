@@ -51,28 +51,8 @@
         owner: "{{ username }}"
         group: "{{ username }}"
 
-    - name: Generate SSH key pair if not present
-      openssh_keypair:
-        path: "{{ ssh_key_file }}"
-        type: rsa
-        size: 2048
-        owner: "{{ username }}"
-        group: "{{ username }}"
-        mode: "0600"
-      register: ssh_key_result
-
-    - name: Display the public key if newly created
-      debug:
-        msg: "New SSH public key created: {{ ssh_key_result.public_key }}"
-      when: ssh_key_result.changed
-
-    - name: Gather public key content
-      slurp:
-        src: "{{ ssh_key_file }}.pub"
-      register: public_key
-
-    - name: Add public key to authorized_keys on remote hosts
+    - name: Add SSH public key to authorized_keys on remote hosts
       authorized_key:
         user: "{{ username }}"
-        key: "{{ public_key['content'] | b64decode }}"
+        key: "{{ lookup('file', '/home/ansible/.ssh/id_rsa.pub') }}"
         state: present
