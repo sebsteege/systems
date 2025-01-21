@@ -1,4 +1,8 @@
 ---
+# Run as ansible user using the below:
+#
+# ansible-playbook -i inventory/pd_debian/hosts.yml debian_playbooks/test_ssh_key.yml
+
 - name: Test SSH key-based authentication
   hosts: all
   gather_facts: false
