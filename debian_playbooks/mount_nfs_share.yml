@@ -15,6 +15,6 @@
       ansible.posix.mount:
         src: 192.168.100.17:/mnt/Volume-01/Docker
         path: /mnt/truenas
-        opts: defaults,0,0
+        opts: defaults
         state: mounted
         fstype: nfs
