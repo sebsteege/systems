@@ -1,8 +1,14 @@
 ---
+# This playbook disables password authentication for user ansible
+# !!!! Fix playbook to disable ssh for only the user ansible !!!!
+# ansible-playbook -i inventory/pd_debian/hosts.yml debian_playbooks/disable_ansible_pw.yml
+
 - name: Disable password-based SSH access and enable public key authentication
   hosts: all
   become: true
+
   tasks:
+
     - name: Ensure PasswordAuthentication is disabled
       lineinfile:
         path: /etc/ssh/sshd_config
