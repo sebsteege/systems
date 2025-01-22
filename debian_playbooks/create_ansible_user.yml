@@ -4,7 +4,7 @@
 # ansible-playbook -i inventory/pd_debian/hosts.yml debian_playbooks/create_ansible_user.yml --ask-pass --ask-become-pass --vault-password-file /home/ansible/vault/ansible_user_pass_secret.txt
 
 - name: Create a user with sudo privileges
-  hosts: 10.20.20.2
+  hosts: Debian12_Template
   become: yes
   gather_facts: false
   remote_user: cvadmin
