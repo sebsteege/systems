@@ -4,7 +4,7 @@
 # ansible-playbook -i inventory/pd_debian/hosts.yml debian_playbooks/disable_ansible_pw.yml
 
 - name: Disable password-based SSH access and enable public key authentication
-  hosts: all
+  hosts: a10.20.20.2
   become: true
   gather_facts: False
 
