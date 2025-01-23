@@ -29,8 +29,8 @@
 
     - name: Create a new user
       user:
-        name: "{{ username }}"  # Replace with desired username
-        password: "{{ my_password | password_hash('sha512') }}"  # Replace 'your_password' with the actual password
+        name: "{{ username }}" 
+        password: "{{ my_password | password_hash('sha512') }}" 
         shell: /bin/bash
         state: present
         
