@@ -10,12 +10,12 @@
 
   tasks:
 
-    - name: Add Match block to sshd_config for ansible user
+    - name: Add Match block to sshd_config for user
       blockinfile:
         path: /etc/ssh/sshd_config
-        marker: "# BEGIN ansible settings"
+        marker: "# BEGIN docker settings"
         block: |
-          Match User ansible
+          Match User docker
             PasswordAuthentication no
 
     - name: Restart SSH service to apply changes
