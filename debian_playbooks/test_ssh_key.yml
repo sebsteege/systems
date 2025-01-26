@@ -4,7 +4,7 @@
 # ansible-playbook -i inventory/pd_debian/hosts.yml debian_playbooks/test_ssh_key.yml
 
 - name: Test SSH key-based authentication
-  hosts: Debian12_Template
+  hosts: docker
   gather_facts: false
   remote_user: ansible
   vars:
