@@ -1,10 +1,10 @@
 ---
 # Run playbook as cvadmin using the below:
 #
-# ansible-playbook -i inventory/pd_debian/hosts.yml debian_playbooks/create_ansible_user.yml --ask-pass --ask-become-pass --vault-password-file /home/ansible/vault/ansible_user_pass_secret.txt
+# ansible-playbook -i inventory/pd_debian/hosts.yml debian_playbooks/create_ansible_user.yml --ask-pass --ask-become-pass --vault-password-file /home/ansible/vault/docker_user_pass_secret.txt
 
 - name: Create a user with sudo privileges
-  hosts: Debian12_Template
+  hosts: docker
   become: yes
   gather_facts: false
   remote_user: cvadmin
