@@ -6,9 +6,9 @@
 - name: Test SSH key-based authentication
   hosts: docker
   gather_facts: false
-  remote_user: ansible
+  remote_user: docker
   vars:
-    ssh_user: ansible # Replace with the username used for SSH
+    ssh_user: docker # Replace with the username used for SSH
     ssh_private_key: "/home/{{ ssh_user }}/.ssh/id_rsa"  # Path to the private key
 
   tasks:
