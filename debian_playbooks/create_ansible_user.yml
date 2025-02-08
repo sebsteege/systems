@@ -56,6 +56,10 @@
         owner: "{{ username }}"
         group: "{{ username }}"
 
+    - name: Debug SSH key file lookup
+      debug:
+        msg: "{{ lookup('file', '/home/ansible/.ssh/id_rsa.pub') }}"
+
     - name: Add SSH public key to authorized_keys on remote hosts
       authorized_key:
         user: "{{ username }}"
