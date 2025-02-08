@@ -4,7 +4,7 @@
 # ansible-playbook -i inventory/pd_debian/hosts.yml debian_playbooks/disable_ansible_pw.yml
 
 - name: Disable password-based SSH access and enable public key authentication
-  hosts: docker
+  hosts: pd-k3s
   become: true
   gather_facts: False
 
@@ -13,9 +13,9 @@
     - name: Add Match block to sshd_config for user
       blockinfile:
         path: /etc/ssh/sshd_config
-        marker: "# BEGIN docker settings"
+        marker: "# BEGIN ansible settings"
         block: |
-          Match User docker
+          Match User ansible
             PasswordAuthentication no
 
     - name: Restart SSH service to apply changes

@@ -1,18 +1,18 @@
 ---
 # Run playbook as cvadmin using the below:
 #
-# ansible-playbook -i inventory/pd_debian/hosts.yml debian_playbooks/create_ansible_user.yml --ask-pass --ask-become-pass --vault-password-file /home/ansible/vault/docker_user_pass_secret.txt
+# ansible-playbook -i inventory/pd_debian/hosts.yml debian_playbooks/create_ansible_user.yml --ask-pass --ask-become-pass --vault-password-file /home/ansible/vault/ansible_user_pass_secret.txt
 
 - name: Create a user with sudo privileges
-  hosts: docker
+  hosts: ansible
   become: yes
   gather_facts: false
   remote_user: cvadmin
   vars_files:
-    - docker_user_pass.yml
+    - ansible_user_pass.yml
   vars:
     - ssh_key_file: "/home/{{ username }}/.ssh/id_rsa"
-    - username: docker
+    - username: ansible
   tasks:
 
     - name: Ensure pip is installed
@@ -59,5 +59,5 @@
     - name: Add SSH public key to authorized_keys on remote hosts
       authorized_key:
         user: "{{ username }}"
-        key: "{{ lookup('file', '/home/docker/.ssh/id_rsa.pub') }}"
+        key: "{{ lookup('file', '/home/ansible/.ssh/id_rsa.pub') }}"
         state: present

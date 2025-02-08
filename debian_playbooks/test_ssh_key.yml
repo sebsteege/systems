@@ -4,11 +4,11 @@
 # ansible-playbook -i inventory/pd_debian/hosts.yml debian_playbooks/test_ssh_key.yml
 
 - name: Test SSH key-based authentication
-  hosts: docker
+  hosts: pd-k3s
   gather_facts: false
-  remote_user: docker
+  remote_user: ansible
   vars:
-    ssh_user: docker # Replace with the username used for SSH
+    ssh_user: ansible # Replace with the username used for SSH
     ssh_private_key: "/home/{{ ssh_user }}/.ssh/id_rsa"  # Path to the private key
 
   tasks:
