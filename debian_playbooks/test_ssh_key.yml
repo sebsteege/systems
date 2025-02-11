@@ -6,6 +6,7 @@
 - name: Test SSH key-based authentication
   hosts: pd-k3s
   gather_facts: false
+  become: yes
   remote_user: ansible
   vars:
     ssh_user: ansible # Replace with the username used for SSH
