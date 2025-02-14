@@ -1,0 +1,7 @@
+tcp_ports:
+  - 22 # SSH
+  - 2379:2380 # etcd
+  - 6443 # Kubernetes API Server
+  - 10250 # Kubelet Metrics
+
+udp_ports:
