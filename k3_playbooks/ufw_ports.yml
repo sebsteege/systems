@@ -1,6 +1,8 @@
-- name: Disable password-based SSH access and enable public key authentication
+- name: Manage UFW firewall rules related to k3s cluster
   hosts: pd-k3s
   become: true
+  vars_files:
+    - ports.yml
   gather_facts: False
 
   tasks:
