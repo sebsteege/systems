@@ -1,0 +1,12 @@
+- name: Disable password-based SSH access and enable public key authentication
+  hosts: pd-k3s
+  become: true
+  gather_facts: False
+
+  tasks:
+
+    # Mount NFS Share
+
+    - name: Enable UFW
+      community.general.ufw:
+        state: enabled
