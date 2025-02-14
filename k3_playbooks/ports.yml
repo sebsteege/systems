@@ -4,4 +4,4 @@ tcp_ports:
   - 6443 # Kubernetes API Server
   - 10250 # Kubelet Metrics
 
-udp_ports:
+# udp_ports:
