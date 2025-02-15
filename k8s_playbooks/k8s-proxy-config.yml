@@ -39,9 +39,7 @@
         dest: "/tmp/kubectl.sha256"
 
     - name: Verify checksum
-      command: "sha256sum --check /tmp/kubectl.sha256"
-      args:
-        chdir: "/usr/local/bin"
+      shell: "echo \"$(cat /tmp/kubectl.sha256)  /usr/local/bin/kubectl\" | sha256sum --check"
       register: checksum_result
       changed_when: false
       failed_when: "'OK' not in checksum_result.stdout"
