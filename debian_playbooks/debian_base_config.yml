@@ -34,4 +34,4 @@
 
     - name: Set a hostname
       ansible.builtin.hostname:
-        name: web01
+        name: "{{ inventory_hostname}}"
