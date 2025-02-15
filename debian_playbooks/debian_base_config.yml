@@ -35,3 +35,10 @@
     - name: Set a hostname
       ansible.builtin.hostname:
         name: "{{ inventory_hostname}}"
+
+    # Set nameserver
+
+    - name: Set nameserver
+      ansible.builtin.lineinfile:
+        path: /etc/resolv.conf
+        line: "nameserver 10.20.20.10"  
