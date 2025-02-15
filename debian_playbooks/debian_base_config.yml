@@ -38,7 +38,7 @@
 
     # Set nameserver
 
-    - name: Set nameserver
-      ansible.builtin.lineinfile:
-        path: /etc/resolv.conf
-        line: "nameserver 10.20.20.10"  
+    #- name: Set nameserver
+    #  ansible.builtin.lineinfile:
+    #    path: /etc/resolv.conf
+    #    line: "nameserver 10.20.20.10" 
