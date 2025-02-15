@@ -1,0 +1,56 @@
+# sudo apt update && sudo apt upgrade –y
+# sudo apt install python3-pip
+# #Download Kubernetes Tools using Curl:
+# curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+# #Verify Checksum (Response should be kubectl:OK): 
+# curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+# echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+# #Install Kubernetes Tools: 
+# sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+# #Validate install:
+# kubectl version
+
+- name: Install kubectl and dependencies
+  hosts: k8s-proxy
+  become: true
+  vars:
+    kubectl_version: "v1.32.2"  # Define the desired version here
+
+  tasks:
+    - name: Update and upgrade the system
+      apt:
+        update_cache: yes
+        upgrade: yes
+
+    - name: Install required packages
+      apt:
+        name: python3-pip
+        state: present
+
+    - name: Download kubectl binary
+      get_url:
+        url: "https://dl.k8s.io/release/{{ kubectl_version }}/bin/linux/amd64/kubectl"
+        dest: "/usr/local/bin/kubectl"
+        mode: '0755'
+
+    - name: Download kubectl checksum
+      get_url:
+        url: "https://dl.k8s.io/release/{{ kubectl_version }}/bin/linux/amd64/kubectl.sha256"
+        dest: "/tmp/kubectl.sha256"
+
+    - name: Verify checksum
+      command: "sha256sum --check /tmp/kubectl.sha256"
+      args:
+        chdir: "/usr/local/bin"
+      register: checksum_result
+      changed_when: false
+      failed_when: "'OK' not in checksum_result.stdout"
+
+    - name: Validate kubectl installation
+      command: kubectl version --client
+      register: kubectl_version_output
+      changed_when: false
+
+    - name: Debug kubectl version
+      debug:
+        msg: "{{ kubectl_version_output.stdout }}"
