@@ -15,6 +15,7 @@
   become: true
   vars:
     kubectl_version: "v1.32.2"  # Define the desired version here
+    kustomize_version: "5.5.0"  # Define desired kustomize version; this is not actively doing anything but for reference
 
   tasks:
     - name: Update and upgrade the system
