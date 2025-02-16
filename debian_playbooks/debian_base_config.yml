@@ -3,7 +3,7 @@
 # ansible-playbook -i inventory/pd_debian/hosts.yml debian_playbooks/debian_base_config.yml
 ---
 - name: Disable password-based SSH access and enable public key authentication
-  hosts: k8s-proxy
+  hosts: pd-k8s
   become: true
   gather_facts: False
 
