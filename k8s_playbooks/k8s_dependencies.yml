@@ -164,6 +164,9 @@
 
 - hosts: pd-k8s-control-1
   become: yes
+  vars:
+    kubernetes_major_version: "1.32"
+    kubernetes_release: "1.32.2-1.1"
 
   tasks:
 
