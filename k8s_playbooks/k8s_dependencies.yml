@@ -4,6 +4,7 @@
   vars:
     kubernetes_major_version: "1.32"
     kubernetes_release: "1.32.2"
+    containerd_version: "2.02"
 
   tasks:
 
@@ -92,7 +93,7 @@
 
     - name: Install containerd
       apt:
-        name: containerd.io=2.02
+        name: "containerd.io={{ containerd_version }}"
         state: present
 
     - name: Create containerd directory
