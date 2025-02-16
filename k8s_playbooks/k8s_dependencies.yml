@@ -2,7 +2,7 @@
   hosts: pd-k8s
   become: yes
   vars:
-    kubernetes_version: "1.32"
+    kubernetes_major_version: "1.32"
     kubernetes_release: "1.32.2"
 
   tasks:
