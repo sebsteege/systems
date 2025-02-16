@@ -120,8 +120,8 @@
     - name: Install Kubernetes Components
       apt:
         name:
-          - "kubelet={{ kubernetes_version }}"
-          - "kubeadm={{ kubernetes_version }}"
+          - "kubelet={{ kubernetes_release }}"
+          - "kubeadm={{ kubernetes_release }}"
         state: present
         update_cache: yes
 
@@ -169,7 +169,7 @@
 
     - name: Install Kubectl
       apt:
-        name: kubectl={{ kubernetes_version }}
+        name: kubectl={{ kubernetes_release }}
         state: present
         force: yes
 
