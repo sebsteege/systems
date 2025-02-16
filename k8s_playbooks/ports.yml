@@ -3,5 +3,9 @@ tcp_ports:
   - 2379:2380 # etcd
   - 6443 # Kubernetes API Server
   - 10250 # Kubelet Metrics
+  - 30000:32767 # NodePort Services
+  - 179 # BGP
+  - 53 # DNS
 
-# udp_ports:
+udp_ports:
+  - 53 # DNS
