@@ -38,8 +38,8 @@
 
     # Set nameserver
 
-    - name: Set nameserver
+    - name: Set nameserver or search domain
       ansible.builtin.lineinfile:
         path: /etc/resolv.conf
-        line: "nameserver 10.20.20.10" 
+       # line: "nameserver 10.20.20.10" 
         line: "search cv-labs.net" 
