@@ -38,11 +38,13 @@
   #      chdir: /home/cvadmin
   #      creates: cluster_initialized.log
 
-    - name: Create .kube directory using command
+    - name: Create .kube directory
       become: yes
       become_user: cvadmin
-      command: mkdir -p /home/cvadmin/.kube
-
+      file:
+        path: "/home/cvadmin/.kube"
+        state: directory
+        mode: "0755"
 
     - name: Copy admin.conf to User's kube config
       copy:
