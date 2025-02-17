@@ -45,8 +45,6 @@
     #sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
     - name: Create .kube directory
-      become: yes
-      become_user: ansible
       file:
         path: "/home/ansible/.kube"
         state: directory
@@ -60,8 +58,6 @@
         owner: ansible
 
     - name: Install Pod Network
-      become: yes
-      become_user: ansible
       shell: kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml >> pod_network_setup.log
       args:
         chdir: ~ansible
