@@ -1,0 +1,24 @@
+- name: Configure Join Commands on Master Node
+  hosts: pd-k8s-control-1
+  become: yes
+  tasks:
+    - name: Retrieve Join Command
+      shell: kubeadm token create --print-join-command
+      register: join_command_raw
+
+    - name: Set Join Command
+      set_fact:
+        join_command: "{{ join_command_raw.stdout_lines[0] }}"
+
+- name: Join Worker Nodes
+  hosts: pd-k8s-workers
+  become: yes
+  tasks:
+    - name: Enable TCP port 6443 (On Master) is able to connect from Worker
+      wait_for: "host=pd-k8s-control port=6443 timeout=1"
+
+    - name: Join worker to cluster
+      shell: "{{ hostvars['pd-k8s-control'].join_command }} >> node_joined.log"
+      args:
+        chdir: /home/ansible
+        creates: node_joined.log

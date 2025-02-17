@@ -38,7 +38,7 @@
   #      chdir: /home/ansible
   #      creates: cluster_initialized.log
 
-  # Due to permissions unable to successfully run the below tasks, use the following to complete:
+  # Due to permissions unable to successfully run the below tasks for cvadmin, use the following to complete as cvadmin:
 
     #mkdir -p $HOME/.kube
     #sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
