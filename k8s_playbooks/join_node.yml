@@ -18,7 +18,7 @@
       wait_for: "host=pd-k8s-control port=6443 timeout=1"
 
     - name: Join worker to cluster
-      shell: "{{ hostvars['pd-k8s-control'].join_command }} >> node_joined.log"
+      shell: "{{ hostvars['pd-k8s-control-1'].join_command }} >> node_joined.log"
       args:
         chdir: /home/ansible
         creates: node_joined.log
