@@ -41,7 +41,6 @@
     - name: Create .kube directory using command
       become: yes
       become_user: cvadmin
-      ansible_shell_allow_world_readable_temp: yes
       command: mkdir -p /home/cvadmin/.kube
 
 
