@@ -39,9 +39,8 @@
   #      creates: cluster_initialized.log
 
     - name: Create .kube directory using command
-      become: no
+      become: yes
       command: mkdir -p /home/cvadmin/.kube
-
 
     - name: Copy admin.conf to User's kube config
       copy:
