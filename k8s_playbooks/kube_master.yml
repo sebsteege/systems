@@ -35,28 +35,34 @@
   #  - name: Initialize the cluster
   #    shell: kubeadm init --config /etc/kubernetes/kubeadm-config.yaml >> cluster_initialized.log
   #    args:
-  #      chdir: /home/cvadmin
+  #      chdir: /home/ansible
   #      creates: cluster_initialized.log
+
+  # Due to permissions unable to successfully run the below tasks, use the following to complete:
+
+    #mkdir -p $HOME/.kube
+    #sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+    #sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
     - name: Create .kube directory
       become: yes
-      become_user: cvadmin
+      become_user: ansible
       file:
-        path: "/home/cvadmin/.kube"
+        path: "/home/ansible/.kube"
         state: directory
         mode: "0755"
 
     - name: Copy admin.conf to User's kube config
       copy:
         src: /etc/kubernetes/admin.conf
-        dest: /home/cvadmin/.kube/config
+        dest: /home/ansible/.kube/config
         remote_src: yes
-        owner: cvadmin
+        owner: ansible
 
     - name: Install Pod Network
       become: yes
-      become_user: cvadmin
+      become_user: ansible
       shell: kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml >> pod_network_setup.log
       args:
-        chdir: ~cvadmin
+        chdir: ~ansible
         creates: pod_network_setup.log
