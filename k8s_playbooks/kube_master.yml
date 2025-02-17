@@ -38,15 +38,11 @@
   #      chdir: /home/cvadmin
   #      creates: cluster_initialized.log
 
-    - name: Create .kube directory
+    - name: Create .kube directory using command
       become: yes
       become_user: cvadmin
-      environment:
-        HOME: "/home/cvadmin"
-      file:
-        path: "/home/cvadmin/.kube"
-        state: directory
-        mode: "0755"
+      ansible_shell_allow_world_readable_temp: yes
+      command: mkdir -p /home/cvadmin/.kube
 
 
     - name: Copy admin.conf to User's kube config
