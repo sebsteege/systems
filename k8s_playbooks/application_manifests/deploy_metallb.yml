@@ -8,3 +8,9 @@
       kubernetes.core.k8s:
         state: present
         src: /gitlab_dev/cv-labs/k8s_playbooks/application_manifests/metallb.yml
+      register: result
+
+    - name: Write deployment result to a log file
+      copy:
+        content: "{{ result | to_nice_json }}"
+        dest: "/var/log/metallb-deploy.log"
