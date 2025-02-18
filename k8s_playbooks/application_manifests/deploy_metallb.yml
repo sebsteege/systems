@@ -8,6 +8,7 @@
       kubernetes.core.k8s:
         state: present
         src: /gitlab_dev/cv-labs/k8s_playbooks/application_manifests/metallb.yml
+        kubeconfig: /home/ansible/.kube/config
       register: result
 
     - name: Write deployment result to a log file
