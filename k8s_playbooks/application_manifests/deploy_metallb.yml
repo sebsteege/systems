@@ -1,4 +1,10 @@
-- name: Create a Namespace from K8S YAML File
-  kubernetes.core.k8s:
-    state: present
-    src: /kube_manifests/create_namespace.yml
+- name: Deploy application
+  hosts: k8s-proxy
+  become: yes
+
+  tasks:
+
+    - name: Create a Namespace from K8S YAML File
+      kubernetes.core.k8s:
+        state: present
+        src: /gitlab_dev/cv-labs/k8s_playbooks/application_manifests/metallb.yml
