@@ -6,9 +6,7 @@
   gather_facts: False
 
   tasks:
-
-    # Mount NFS Share
-
+  
     - name: Enable UFW
       community.general.ufw:
         state: enabled
