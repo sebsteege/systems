@@ -4,10 +4,10 @@
 
   tasks:
 
-    - name: Create a Namespace from K8S YAML File
+    - name: Create a metallb from K8S YAML File
       kubernetes.core.k8s:
         state: present
-        src: /k8s_playbooks/application_manifests/metallb.yml
+        src: /home/ansible/gitlab_dev/cv-labs/k8s_playbooks/application_manifests/metallb.yml
         kubeconfig: /home/ansible/.kube/config
       register: result
 
