@@ -4,10 +4,18 @@
 
   tasks:
 
+    - name: Copy metallb.yml to k8s-proxy
+      copy:
+        src: metallb.yml
+        dest: /opt/application_manifests/metallb.yml
+        owner: ansible
+        group: ansible
+        mode: '0644'
+
     - name: Create a metallb from K8S YAML File
       kubernetes.core.k8s:
         state: present
-        src: /home/ansible/gitlab_dev/cv-labs/k8s_playbooks/application_manifests/metallb.yml
+        src: /opt/application_manifests/metallb.yml
         kubeconfig: /home/ansible/.kube/config
       register: result
 
