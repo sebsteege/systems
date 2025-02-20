@@ -6,6 +6,8 @@ tcp_ports:
   - 30000:32767 # NodePort Services
   - 179 # BGP
   - 53 # DNS
+  - 7946
 
 udp_ports:
   - 53 # DNS
+  - 7946
