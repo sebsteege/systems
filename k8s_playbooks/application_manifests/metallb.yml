@@ -1,29 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: metallb
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  namespace: metallb
-  name: config
-data:
-  config: |
-    peers:
-    - my-asn: 65099
-      peer-asn: 65012
-      peer-address: 192.168.100.1
-    address-pools:
-    - name: metallb-vip-space
-      protocol: bgp
-      addresses:
-      - 192.150.1.0/24
-      bgp-advertisements:
-      - aggregation-length: 32
-        localpref: 100
-        communities:
-        - 64512:1234  
+  name: metallb 
 ---  
 apiVersion: metallb.io/v1beta2
 kind: BGPPeer
