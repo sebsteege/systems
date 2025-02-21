@@ -34,10 +34,10 @@ spec:
           claimName: media-pvc
 ---
 kind: Service
-namespace: media
 apiVersion: v1
 metadata:
   name: nzbget-service
+  namespace: media
 spec:
   selector:
     app: nzbget
