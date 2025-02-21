@@ -1,0 +1,11 @@
+- name: Deploy nginx
+  hosts: k8s-proxy
+  become: yes
+
+  tasks:
+
+    - name: Install nginx
+      ansible.builtin.shell: |
+        kubectl apply --kubeconfig=/home/ansible/.kube/config -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.12.0/deploy/static/provider/cloud/deploy.yaml
+      register: res
+      changed_when: res.rc != 0

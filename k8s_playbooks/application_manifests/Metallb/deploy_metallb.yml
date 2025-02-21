@@ -1,4 +1,4 @@
-- name: Deploy application
+- name: Deploy metallb
   hosts: k8s-proxy
   become: yes
 
