@@ -6,3 +6,12 @@ metadata:
 spec:
   type: LoadBalancer
   loadBalancerIP: "192.168.100.5"  # Must be in the MetalLB pool
+  selector:
+    app.kubernetes.io/name: ingress-nginx
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+    - name: https
+      port: 443
+      targetPort: https
