@@ -1,5 +1,5 @@
 - name: Label worker nodes
-  hosts: k8s-proxy
+  hosts: pd-k8s-workers
   become: yes
 
   tasks:
