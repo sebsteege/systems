@@ -22,6 +22,6 @@
 
     - name: Install nzbget
       ansible.builtin.shell: |
-        kubectl apply --kubeconfig=/home/ansible/.kube/config -k .
+        kubectl apply --kubeconfig=/home/ansible/.kube/config -k /opt/application_manifests/kustomization.yml
       register: res
       changed_when: res.rc != 0
