@@ -4,7 +4,8 @@ metadata:
   name: ingress-nginx-controller
   namespace: ingress-nginx
 spec:
-  type: NodePort
+  type: LoadBalancer
+  loadBalancerIP: "192.168.175.5"  # Must be in the MetalLB pool
   selector:
     app.kubernetes.io/name: ingress-nginx
   ports:
