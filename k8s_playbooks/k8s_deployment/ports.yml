@@ -8,6 +8,8 @@ tcp_ports:
   - 53 # DNS
   - 7946
   - 6789
+  - 443
+  - 80
 
 udp_ports:
   - 53 # DNS
