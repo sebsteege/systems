@@ -4,8 +4,22 @@
 
   tasks:
 
+    - name: Copy volume.yml to k8s-proxy
+      copy:
+        src: nginx_svc.yml
+        dest: /opt/application_manifests/nginx_svc.yml
+        owner: ansible
+        group: ansible
+        mode: '0644'
+
     - name: Install nginx
       ansible.builtin.shell: |
         kubectl apply --kubeconfig=/home/ansible/.kube/config -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.12.0/deploy/static/provider/cloud/deploy.yaml
+      register: res
+      changed_when: res.rc != 0
+
+    - name: Install nginx svc
+      ansible.builtin.shell: |
+        kubectl apply --kubeconfig=/home/ansible/.kube/config -f nginx_svc.yml
       register: res
       changed_when: res.rc != 0
