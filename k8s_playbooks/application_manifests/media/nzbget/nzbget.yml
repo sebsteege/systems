@@ -32,37 +32,37 @@
         - name: "media-pv"
           persistentVolumeClaim:
             claimName: "media-pvc" # PersistentVolumeClaim created earlier
----
-kind: Service
-namespace: media
-apiVersion: v1
-metadata:
-  name: nzbget-service
-spec:
-  selector:
-    app: nzbget
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 6789
-  type: ClusterIP
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: nzbget-ingress
-  namespace: media
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-spec:
-  rules:
-  - host: nzbget.cv-labs.net
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: nzbget-service
-            port:
-              number: 443
+#---
+#kind: Service
+#namespace: media
+#apiVersion: v1
+#metadata:
+#  name: nzbget-service
+#spec:
+#  selector:
+#    app: nzbget
+#  ports:
+#  - protocol: TCP
+#    port: 80
+#    targetPort: 6789
+#  type: ClusterIP
+#---
+#apiVersion: networking.k8s.io/v1
+#kind: Ingress
+#metadata:
+#  name: nzbget-ingress
+#  namespace: media
+#  annotations:
+#    nginx.ingress.kubernetes.io/rewrite-target: /
+#spec:
+#  rules:
+#  - host: nzbget.cv-labs.net
+#    http:
+#      paths:
+#      - path: /
+#        pathType: Prefix
+#        backend:
+#          service:
+#            name: nzbget-service
+#            port:
+#              number: 443
