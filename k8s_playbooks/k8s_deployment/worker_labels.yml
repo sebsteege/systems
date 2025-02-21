@@ -1,0 +1,13 @@
+- name: Label worker nodes
+  hosts: k8s-proxy
+  become: yes
+
+  tasks:
+
+    - name: Apply worker label
+      ansible.builtin.shell: |
+        kubectl --kubeconfig=/home/ansible/.kube/config label nodes pd-k8s-worker-1 role=worker
+        kubectl --kubeconfig=/home/ansible/.kube/config label nodes pd-k8s-worker-2 role=worker
+        kubectl --kubeconfig=/home/ansible/.kube/config label nodes pd-k8s-worker-3 role=worker
+      register: res
+      changed_when: res.rc != 0
