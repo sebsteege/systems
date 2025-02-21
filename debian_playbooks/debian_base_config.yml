@@ -29,8 +29,9 @@
         opts: rw
         state: mounted
         fstype: nfs
+      when: inventory_hostname not in groups['pd-k8s-workers']
 
-    - name: Mount NFS volumes
+    - name: Mount kubernetes NFS volumes
       ansible.posix.mount:
         src: 192.168.100.17:/mnt/Volume-01/kubernetes
         path: /mnt/
