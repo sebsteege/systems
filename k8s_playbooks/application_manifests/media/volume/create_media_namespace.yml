@@ -1,4 +1,4 @@
-- name: Deploy Truenas Volume
+- name: Deploy Media Namespace
   hosts: k8s-proxy
   become: yes
 
@@ -6,7 +6,8 @@
 
     - name: Create a k8s namespace
       kubernetes.core.k8s:
-        name: testing
+        name: media
         api_version: v1
         kind: Namespace
         state: present
+        kubeconfig: /home/ansible/.kube/config
