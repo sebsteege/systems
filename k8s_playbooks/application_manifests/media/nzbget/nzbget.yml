@@ -45,22 +45,22 @@ spec:
   - protocol: TCP
     port: 6789
     targetPort: 6789
-  type: LoadBalancer
-#---
-#apiVersion: networking.k8s.io/v1
-#kind: Ingress
-#metadata:
-#  name: nzbget-ingress
-#  namespace: media
-#spec:
-#  rules:
-#  - host: nzbget.cv-labs.net
-#    http:
-#      paths: 
-#      - path: /
-#        pathType: Prefix
-#        backend:
-#          service:
-#            name: nzbget-service
-#            port:
-#              number: 80
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nzbget-ingress
+  namespace: media
+spec:
+  rules:
+  - host: nzbget.cv-labs.net
+    http:
+      paths: 
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nzbget-service
+            port:
+              number: 80
