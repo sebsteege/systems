@@ -10,8 +10,12 @@ tcp_ports:
   - 6789
   - 443
   - 80
+  - 8472 # Flannel
+  - 8285 # Flannel
 
 udp_ports:
   - 53 # DNS
   - 7946
   - 6789
+  - 8285 # Flannel
+  - 8472 # Flannel
