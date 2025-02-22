@@ -17,21 +17,21 @@ spec:
         app: nzbget
     spec:
       containers:
-      - name: nzbget
-        image: docker.io/linuxserver/nzbget:amd64-latest
-        ports:
-        - containerPort: 6789
-        volumeMounts:
-        - mountPath: /config
-          subPath: configs/nzbget-data
-          name: media-pv
-        - mountPath: /downloads
-          subPath: downloads
-          name: media-pv
+        - name: nzbget
+          image: docker.io/linuxserver/nzbget:amd64-latest
+          ports:
+            - containerPort: 6789
+          volumeMounts:
+            - mountPath: /config
+              subPath: configs/nzbget-data
+              name: media-pv
+            - mountPath: /downloads
+              subPath: downloads
+              name: media-pv
       volumes:
-      - name: media-pv
-        persistentVolumeClaim:
-          claimName: media-pvc
+        - name: media-pv
+          persistentVolumeClaim:
+            claimName: media-pvc
 ---
 kind: Service
 apiVersion: v1
