@@ -52,8 +52,6 @@ kind: Ingress
 metadata:
   name: nzbget-ingress
   namespace: media
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
   - host: nzbget.cv-labs.net
