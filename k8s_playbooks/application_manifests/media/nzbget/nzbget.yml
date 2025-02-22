@@ -53,6 +53,7 @@ metadata:
   name: nzbget-ingress
   namespace: media
 spec:
+  ingressClassName: nginx
   rules:
   - host: nzbget.cv-labs.net
     http:
