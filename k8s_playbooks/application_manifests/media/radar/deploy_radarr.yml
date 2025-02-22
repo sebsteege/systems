@@ -1,0 +1,27 @@
+- name: Deploy radarr
+  hosts: k8s-proxy
+  become: yes
+
+  tasks:
+
+    - name: Copy radarr.yml to k8s-proxy
+      copy:
+        src: radarr.yml
+        dest: /opt/application_manifests/radarr/radarr.yml
+        owner: ansible
+        group: ansible
+        mode: '0644'
+
+    - name: Copy kustomization.yml to k8s-proxy
+      copy:
+        src: kustomization.yml
+        dest: /opt/application_manifests/radarr/kustomization.yml
+        owner: ansible
+        group: ansible
+        mode: '0644'
+
+    - name: Install radarr
+      ansible.builtin.shell: |
+        kubectl apply --kubeconfig=/home/ansible/.kube/config -k /opt/application_manifests/radarr/
+      register: res
+      changed_when: res.rc != 0
