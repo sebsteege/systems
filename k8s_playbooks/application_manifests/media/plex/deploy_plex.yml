@@ -1,0 +1,27 @@
+- name: Deploy plex
+  hosts: k8s-proxy
+  become: yes
+
+  tasks:
+
+    - name: Copy plex.yml to k8s-proxy
+      copy:
+        src: plex.yml
+        dest: /opt/application_manifests/plex/plex.yml
+        owner: ansible
+        group: ansible
+        mode: '0644'
+
+    - name: Copy kustomization.yml to k8s-proxy
+      copy:
+        src: kustomization.yml
+        dest: /opt/application_manifests/plex/kustomization.yml
+        owner: ansible
+        group: ansible
+        mode: '0644'
+
+    - name: Install plex
+      ansible.builtin.shell: |
+        kubectl apply --kubeconfig=/home/ansible/.kube/config -k /opt/application_manifests/plex/
+      register: res
+      changed_when: res.rc != 0
