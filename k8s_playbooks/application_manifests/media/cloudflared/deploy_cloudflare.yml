@@ -22,6 +22,6 @@
 
     - name: Install cloudflare
       ansible.builtin.shell: |
-        kubectl apply --kubeconfig=/home/ansible/.kube/config /opt/application_manifests/cloudflare.yml
+        kubectl apply --kubeconfig=/home/ansible/.kube/config -f /opt/application_manifests/cloudflare.yml
       register: res
       changed_when: res.rc != 0
