@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: media
+  labels:
+    app: cloudflared
+  name: cloudflared
+spec:
+  selector:
+    matchLabels:
+      app: cloudflared
+  template:
+    metadata:
+      labels:
+        app: cloudflared
+    spec:
+      containers:
+      - name: cloudflared
+        image: docker.io/cloudflare/cloudflared:latest
+        imagePullPolicy: Always
+        args: ["tunnel", "--no-autoupdate", "run", "--token=eyJhIjoiYzJkNmNmYzlkZDk0MjljYmQyZjIxYTM1YTI3NTliOWEiLCJ0IjoiODZmYWM1MDAtNTllMS00ODYyLWEyNDQtZGYyZWY1ZGRjYjg2IiwicyI6Ik5UZzFZemhsTVRBdE16Wm1OQzAwWlRrNExUZ3lZelF0TnpFMVpXWXpNR1poTTJRNCJ9"]
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 60
