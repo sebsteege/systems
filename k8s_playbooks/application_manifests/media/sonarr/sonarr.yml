@@ -1,0 +1,70 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sonarr-deployment
+  namespace: media
+  labels:
+    app: sonarr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sonarr
+  template:
+    metadata:
+      labels:
+        app: sonarr
+    spec:
+      containers:
+        - name: sonarr
+          image: docker.io/linuxserver/sonarr:amd64-latest
+          ports:
+            - containerPort: 8989
+          volumeMounts:
+            - mountPath: /config
+              subPath: configs/sonarr-data
+              name: media-pv
+            - mountPath: /downloads
+              subPath: downloads
+              name: media-pv
+            - mountPath: /movies
+              name: media-pv
+              subPath: library/movies
+      volumes:
+        - name: media-pv
+          persistentVolumeClaim:
+            claimName: media-pvc
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: sonarr-service
+  namespace: media
+spec:
+  selector:
+    app: sonarr
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8989
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sonarr-ingress
+  namespace: media
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: sonarr.cv-labs.net
+    http:
+      paths: 
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: sonarr-service
+            port:
+              number: 80
