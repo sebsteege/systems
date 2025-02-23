@@ -1,0 +1,28 @@
+- name: Install tautulli via helm
+  hosts: k8s-proxy
+  become: true
+
+  tasks:
+
+    - name: Copy tautulli_ingress.yml to k8s-proxy
+      copy:
+        src: tautulli_ingress.yml
+        dest: /opt/application_manifests/media/tautulli/tautulli_ingress.yml
+        owner: ansible
+        group: ansible
+        mode: '0644'
+
+    - name: Add prometheus helm repo
+      ansible.builtin.shell: |
+        helm repo add k8s-at-home https://charts.helm.sh/repo/k8s-at-home && helm repo update
+
+    - name: Deploy latest version of tautulli chart inside monitoring namespace
+      kubernetes.core.helm:
+        name: tautulli
+        chart_ref: k8s-at-home/tautulli
+        release_namespace: monitoring
+        kubeconfig: /home/ansible/.kube/config
+
+   # - name: Add prometheus ingress
+   #   ansible.builtin.shell: |
+   #     kubectl apply --kubeconfig=/home/ansible/.kube/config -f /opt/application_manifests/media/tautulli/tautulli_ingress.yml
