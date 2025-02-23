@@ -1,9 +1,13 @@
-- name: Install prom  via helm
+- name: Install prom via helm
   hosts: k8s-proxy
   become: true
 
   tasks:
 
-    - name: Install prometheus via helm
+    - name: Add prometheus helm repo
       ansible.builtin.shell: |
         helm repo add prometheus-community https://prometheus-community.github.io/helm-charts && helm repo update
+
+    - name: Install prometheus via helm
+      ansible.builtin.shell: |
+        helm install prometheus prometheus-community/kube-prometheus-stack -n monitoring --create-namespace
