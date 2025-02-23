@@ -6,7 +6,7 @@
 
     - name: Copy tautulli.yml to k8s-proxy
       copy:
-        src: tautulli_ingress.yml
+        src: tautulli.yml
         dest: /opt/application_manifests/tautulli/tautulli.yml
         owner: ansible
         group: ansible
@@ -14,6 +14,6 @@
 
     - name: Install tautulli
       ansible.builtin.shell: |
-        kubectl apply --kubeconfig=/home/ansible/.kube/config -k /opt/application_manifests/tautullu/
+        kubectl apply --kubeconfig=/home/ansible/.kube/config -k /opt/application_manifests/tautulli/
       register: res
       changed_when: res.rc != 0
