@@ -28,6 +28,12 @@ spec:
             - mountPath: /downloads
               subPath: downloads
               name: media-pv
+            - mountPath: /movies
+              name: media-pv
+              subPath: library/movies
+            - mountPath: /tv
+              name: media-pv
+              subPath: library/tv
       volumes:
         - name: media-pv
           persistentVolumeClaim:
