@@ -7,7 +7,7 @@
     - name: Copy tautulli_ingress.yml to k8s-proxy
       copy:
         src: tautulli_ingress.yml
-        dest: /opt/application_manifests/media/tautulli/tautulli_ingress.yml
+        dest: /opt/application_manifests/tautulli/tautulli_ingress.yml
         owner: ansible
         group: ansible
         mode: '0644'
@@ -25,4 +25,4 @@
 
    # - name: Add prometheus ingress
    #   ansible.builtin.shell: |
-   #     kubectl apply --kubeconfig=/home/ansible/.kube/config -f /opt/application_manifests/media/tautulli/tautulli_ingress.yml
+   #     kubectl apply --kubeconfig=/home/ansible/.kube/config -f /opt/application_manifests/tautulli/tautulli_ingress.yml
