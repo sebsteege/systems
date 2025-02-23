@@ -12,6 +12,14 @@
         group: ansible
         mode: '0644'
 
+    - name: Copy kustomization.yml to k8s-proxy
+      copy:
+        src: kustomization.yml
+        dest: /opt/application_manifests/tautulli/kustomization.yml
+        owner: ansible
+        group: ansible
+        mode: '0644'
+
     - name: Install tautulli
       ansible.builtin.shell: |
         kubectl apply --kubeconfig=/home/ansible/.kube/config -k /opt/application_manifests/tautulli/
