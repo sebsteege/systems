@@ -24,11 +24,11 @@ spec:
           volumeMounts:
             - mountPath: /config
               subPath: configs/home-assistant-data
-              name: media-pv
+              name: homme-ass-pv
       volumes:
-        - name: media-pv
+        - name: homme-ass-pv
           persistentVolumeClaim:
-            claimName: media-pvc
+            claimName: home-assistant-pvc
 ---
 kind: Service
 apiVersion: v1
