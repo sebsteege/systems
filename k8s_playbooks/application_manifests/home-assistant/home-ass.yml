@@ -40,25 +40,26 @@ spec:
     app: home-assistant
   ports:
   - protocol: TCP
-    port: 80
+    port: 8123
     targetPort: 8123
-  type: ClusterIP
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: home-ass-ingress
-  namespace: home-assistant
-spec:
-  ingressClassName: nginx
-  rules:
-  - host: ha.cv-labs.net
-    http:
-      paths: 
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: home-assistant-service
-            port:
-              number: 80
+  type: LoadBalancer
+  loadBalancerIP: 192.168.175.15
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: home-ass-ingress
+#   namespace: home-assistant
+# spec:
+#   ingressClassName: nginx
+#   rules:
+#   - host: ha.cv-labs.net
+#     http:
+#       paths: 
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: home-assistant-service
+#             port:
+#               number: 80
