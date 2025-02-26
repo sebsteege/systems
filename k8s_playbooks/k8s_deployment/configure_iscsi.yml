@@ -1,6 +1,11 @@
 - name: Label worker nodes
   hosts: pd-k8s-workers
   become: yes
+  vars:
+    iscsi_target_ip: "10.50.50.10"
+    iscsi_target_iqn: "iqn.2005-10.org.freenas.ctl"
+    iscsi_device: "/dev/sdX"   # Change this after checking the assigned device name
+    iscsi_mount_path: "/mnt/iscsi"
 
   tasks:
 
@@ -18,3 +23,64 @@
       systemd:
         name: networking
         state: restarted
+
+    - name: Install iSCSI initiator utilities
+      apt:
+        name: open-iscsi
+        state: present
+        update_cache: yes
+
+    - name: Enable and start iSCSI service
+      systemd:
+        name: open-iscsi
+        enabled: yes
+        state: started
+
+    - name: Discover available iSCSI targets
+      command: iscsiadm -m discovery -t sendtargets -p {{ iscsi_target_ip }}
+      register: discovery_result
+      changed_when: "'iqn.' in discovery_result.stdout"
+
+    - name: Log in to iSCSI target
+      command: iscsiadm -m node -T {{ iscsi_target_iqn }} -p {{ iscsi_target_ip }} --login
+      register: login_result
+      changed_when: "'successful' in login_result.stdout"
+
+    - name: Enable automatic iSCSI login at boot
+      command: iscsiadm -m node -T {{ iscsi_target_iqn }} -p {{ iscsi_target_ip }} --op update -n node.startup -v automatic
+      changed_when: false
+
+    - name: Wait for iSCSI device to appear
+      wait_for:
+        path: "{{ iscsi_device }}"
+        timeout: 30
+
+    - name: Check if device is formatted
+      command: blkid {{ iscsi_device }}
+      register: blkid_result
+      changed_when: false
+      failed_when: false
+
+    - name: Format the iSCSI disk (if unformatted)
+      command: mkfs.ext4 {{ iscsi_device }}
+      when: blkid_result.rc != 0
+
+    - name: Ensure mount point exists
+      file:
+        path: "{{ iscsi_mount_path }}"
+        state: directory
+        mode: "0755"
+
+    - name: Mount the iSCSI disk
+      mount:
+        path: "{{ iscsi_mount_path }}"
+        src: "{{ iscsi_device }}"
+        fstype: ext4
+        opts: "_netdev"
+        state: mounted
+
+    - name: Persist iSCSI mount in fstab
+      lineinfile:
+        path: /etc/fstab
+        line: "{{ iscsi_device }} {{ iscsi_mount_path }} ext4 _netdev 0 0"
+        state: present
