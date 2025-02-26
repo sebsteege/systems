@@ -2,21 +2,19 @@
   hosts: pd-k8s-workers
   become: yes
 
-    - name: Configure static IP for enX1 via /etc/network/interfaces
-      hosts: target_host
-      become: yes
-      tasks:
-        - name: Add network configuration for enX1
-          blockinfile:
-            path: /etc/network/interfaces
-            block: |
-              auto enX1
-              iface enX1 inet static
-              address "{{ enX1_iscsi_ip }}"
-              netmask 255.255.255.0
-            marker: "# {mark} ANSIBLE MANAGED BLOCK"
+    tasks:
 
-        - name: Restart networking service
-          systemd:
-            name: networking
-            state: restarted
+      - name: Add network configuration for enX1
+        blockinfile:
+          path: /etc/network/interfaces
+          block: |
+            auto enX1
+            iface enX1 inet static
+            address "{{ enX1_iscsi_ip }}"
+            netmask 255.255.255.0
+          marker: "# {mark} ANSIBLE MANAGED BLOCK"
+          
+      - name: Restart networking service
+        systemd:
+          name: networking
+          state: restarted
