@@ -3,7 +3,7 @@
   become: yes
   vars:
     iscsi_target_ip: "10.50.50.10"
-    iscsi_target_iqn: "iqn.2005-10.org.freenas.ctl"
+    iscsi_target_iqn: "iqn.2005-10.org.freenas.ctl:kubernetes-iscsi"
     iscsi_device: "/dev/sdX"   # Change this after checking the assigned device name
     iscsi_mount_path: "/mnt/iscsi"
 
