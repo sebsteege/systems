@@ -57,7 +57,7 @@ spec:
         - mountPath: /config
           name: "iscsi-pv"
         - mountPath: /data
-          name: "iscsi-pv"
+          name: "media-pv"
 ---
 kind: Service
 apiVersion: v1
