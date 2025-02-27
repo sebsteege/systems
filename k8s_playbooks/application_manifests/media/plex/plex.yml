@@ -55,10 +55,10 @@ spec:
           value: America/New_York
         volumeMounts:
         - mountPath: /config
-          subPath: /configs/plex
+          subPath: configs/plex
           name: iscsi-pv
         - mountPath: /data
-          subPath: /configs/plex
+          subPath: configs/plex
           name: iscsi-pv
 
 ---
