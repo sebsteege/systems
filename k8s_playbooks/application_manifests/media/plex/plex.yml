@@ -19,6 +19,9 @@ spec:
       - name: "media-pv"
         persistentVolumeClaim:
           claimName: "media-pvc"
+      - name: "iscsi-pv"
+        persistentVolumeClaim:
+          claimName: "iscsi-pvc"
       containers:
       - name: plex
         image: docker.io/linuxserver/plex:latest
@@ -52,10 +55,12 @@ spec:
           value: America/New_York
         volumeMounts:
         - mountPath: /config
-          subPath: /mnt/iscsi/configs/plex
-          name: iscsi
+          subPath: /configs/plex
+          name: iscsi-pv
         - mountPath: /data
-          subPath: /mnt/iscsi/configs/plex
+          subPath: /configs/plex
+          name: iscsi-pv
+
 ---
 kind: Service
 apiVersion: v1
