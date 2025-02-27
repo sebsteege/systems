@@ -52,9 +52,9 @@ spec:
           value: America/New_York
         volumeMounts:
         - mountPath: /config
-          name: "media-pv"
+          subPath: /mnt/iscsi/configs/plex
         - mountPath: /data
-          name: "media-pv"
+          subPath: /mnt/iscsi/configs/plex
 ---
 kind: Service
 apiVersion: v1
