@@ -53,6 +53,7 @@ spec:
         volumeMounts:
         - mountPath: /config
           subPath: /mnt/iscsi/configs/plex
+          name: iscsi
         - mountPath: /data
           subPath: /mnt/iscsi/configs/plex
 ---
