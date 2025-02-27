@@ -55,9 +55,9 @@ spec:
           value: America/New_York
         volumeMounts:
         - mountPath: /config
-          name: iscsi-pv
+          name: "iscsi-pv"
         - mountPath: /data
-          name: iscsi-pv
+          name: "iscsi-pv"
 ---
 kind: Service
 apiVersion: v1
