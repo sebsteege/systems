@@ -23,8 +23,8 @@ spec:
             - containerPort: 7878
           volumeMounts:
             - mountPath: /config
-              subPath: config/radarr-data
-              name: iscsi-pv
+              subPath: configs/radarr-data
+              name: media-pv
             - mountPath: /downloads
               subPath: downloads
               name: media-pv
@@ -35,9 +35,6 @@ spec:
         - name: media-pv
           persistentVolumeClaim:
             claimName: media-pvc
-        - name: iscsi-pv
-          persistentVolumeClaim:
-            claimName: iscsi-pvc
 ---
 kind: Service
 apiVersion: v1
