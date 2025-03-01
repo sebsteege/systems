@@ -35,9 +35,9 @@ spec:
         - name: media-pv
           persistentVolumeClaim:
             claimName: media-pvc
-        - name: "iscsi-pv"
+        - name: iscsi-pv
           persistentVolumeClaim:
-            claimName: "iscsi-pvc"
+            claimName: iscsi-pvc
 ---
 kind: Service
 apiVersion: v1
