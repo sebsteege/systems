@@ -24,7 +24,7 @@
         opts: rw
         state: mounted
         fstype: nfs
----
+
 - name: Deploy Truenas Volume
   hosts: k8s-proxy
   become: yes
