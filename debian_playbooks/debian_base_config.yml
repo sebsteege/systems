@@ -24,7 +24,7 @@
 
     - name: Mount NFS volumes
       ansible.posix.mount:
-        src: 192.168.100.17:/mnt/Volume-01/Docker
+        src: 10.51.51.10:/mnt/Volume-01/Docker
         path: /mnt/truenas
         opts: rw
         state: mounted
@@ -33,7 +33,7 @@
 
     - name: Mount kubernetes NFS volumes
       ansible.posix.mount:
-        src: 192.168.100.17:/mnt/Volume-01/kubernetes
+        src: 10.51.51.10:/mnt/Volume-01/kubernetes
         path: /mnt/
         opts: rw
         state: mounted
