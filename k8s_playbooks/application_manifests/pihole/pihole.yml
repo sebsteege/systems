@@ -25,7 +25,7 @@ spec:
         - name: TZ
           value: "America/New_York"
         - name: WEBPASSWORD
-          value: SeaBass7!
+          value: "secret"
         volumeMounts:
         - name: pihole-pv
           mountPath: /etc/pihole
