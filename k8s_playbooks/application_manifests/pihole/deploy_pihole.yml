@@ -1,0 +1,27 @@
+- name: Deploy pihole
+  hosts: k8s-proxy
+  become: yes
+
+  tasks:
+
+    - name: Copy pihole.yml to k8s-proxy
+      copy:
+        src: pihole.yml
+        dest: /opt/application_manifests/pihole/pihole.yml
+        owner: ansible
+        group: ansible
+        mode: '0644'
+
+    - name: Copy kustomization.yml to k8s-proxy
+      copy:
+        src: kustomization.yml
+        dest: /opt/application_manifests/pihole/kustomization.yml
+        owner: ansible
+        group: ansible
+        mode: '0644'
+
+    - name: Install pihole
+      ansible.builtin.shell: |
+        kubectl apply --kubeconfig=/home/ansible/.kube/config -k /opt/application_manifests/pihole/
+      register: res
+      changed_when: res.rc != 0
