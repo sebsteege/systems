@@ -1,0 +1,15 @@
+- name: Label worker nodes
+  hosts: pd-k8s-workers
+  become: yes
+
+  tasks:
+
+    - name: Add network configuration for enX1
+      blockinfile:
+        path: /etc/network/interfaces
+        block: |
+          auto enX2
+          iface enX2 inet static
+          address "{{ enX2_iscsi_ip }}"
+          netmask 255.255.255.0
+        marker: "# {mark} ANSIBLE MANAGED BLOCK"
