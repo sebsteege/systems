@@ -1,3 +1,30 @@
+---
+- name: Disable password-based SSH access and enable public key authentication
+  hosts: pd-k8s-workers
+  become: true
+  gather_facts: False
+
+  tasks:
+
+    - name: Ensure nfs-common is installed
+      apt:
+        name: nfs-common 
+        state: present
+
+    - name: Create a directory if it does not exist
+      ansible.builtin.file:
+        path: /mnt/pihole
+        state: directory
+        mode: '0755'
+
+    - name: Mount NFS volumes
+      ansible.posix.mount:
+        src: 192.168.100.17:/mnt/Volume-01/pihole
+        path: /mnt/pihole
+        opts: rw
+        state: mounted
+        fstype: nfs
+---
 - name: Deploy Truenas Volume
   hosts: k8s-proxy
   become: yes

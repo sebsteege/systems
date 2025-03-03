@@ -27,16 +27,14 @@ spec:
         - name: WEBPASSWORD
           value: SeaBass7!
         volumeMounts:
-        - name: media-pv
+        - name: pihole-pv
           mountPath: /etc/pihole
-          subPath: configs/pihole-data
-        - name: media-pv
+        - name: pihole-pv
           mountPath: /etc/dnsmasq.d
-          subPath: configs/pihole-dnsmasq
       volumes:
-      - name: media-pv
+      - name: pihole-pv
         persistentVolumeClaim:
-          claimName: media-pvc
+          claimName: pihole-pvc
 ---
 apiVersion: v1
 kind: Service
