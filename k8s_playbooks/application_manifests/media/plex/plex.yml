@@ -59,7 +59,7 @@ spec:
         - name: GID
           value: "\x31\x30\x30\x33" #Corresponds to group id on NFS server
         - name: PLEX_CLAIM
-          value: claim-FBRDQ1tfaSwo4xBzvuG-
+          value: claim-xtrms5838eUgYtuYzseM
         - name: TZ
           value: America/New_York
         volumeMounts:
