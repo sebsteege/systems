@@ -24,7 +24,6 @@ spec:
                 operator: In
                 values:
                 - pd-k8s-worker-1
-    spec:
       volumes:
       - name: "media-pv"
         persistentVolumeClaim:
