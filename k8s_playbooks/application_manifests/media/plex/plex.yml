@@ -15,6 +15,16 @@ spec:
       labels:
         app: plexserver
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - pd-k8s-worker-1
+    spec:
       volumes:
       - name: "media-pv"
         persistentVolumeClaim:

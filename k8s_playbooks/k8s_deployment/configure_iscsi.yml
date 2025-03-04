@@ -9,21 +9,6 @@
 
   tasks:
 
-    - name: Add network configuration for enX1
-      blockinfile:
-        path: /etc/network/interfaces
-        block: |
-          auto enX1
-          iface enX1 inet static
-          address "{{ enX1_iscsi_ip }}"
-          netmask 255.255.255.0
-        marker: "# {mark} ANSIBLE MANAGED BLOCK"
-        
-    - name: Restart networking service
-      systemd:
-        name: networking
-        state: restarted
-
     - name: Install iSCSI initiator utilities
       apt:
         name: open-iscsi
