@@ -4,7 +4,7 @@ metadata:
   name: additional-scrape-configs
   namespace: monitoring
 data:
-  prometheus-additional.yaml: |
+  prom-config-map.yml: |
     - job_name: 'external-nodes'
       static_configs:
         - targets:
