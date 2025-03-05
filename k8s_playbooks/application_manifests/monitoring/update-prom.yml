@@ -1,0 +1,36 @@
+- name: Install prom via helm
+  hosts: k8s-proxy
+  become: true
+
+  tasks:
+
+    - name: Copy values.yml to k8s-proxy
+      copy:
+        src: values.yml
+        dest: /opt/application_manifests/monitoring/values.yml
+        owner: ansible
+        group: ansible
+        mode: '0644'
+
+    - name: Copy prom-config-map.yml to k8s-proxy
+      copy:
+        src: prom-config-map.yml
+        dest: /opt/application_manifests/monitoring/prom-config-map.yml
+        owner: ansible
+        group: ansible
+        mode: '0644'
+
+    - name: Add prometheus ingress
+      ansible.builtin.shell: |
+        kubectl apply --kubeconfig=/home/ansible/.kube/config -f /opt/application_manifests/monitoring/prom-config-map.yml
+
+    - name: Deploy latest version of Prometheus chart inside monitoring namespace (and create it)
+      kubernetes.core.helm:
+        name: prometheus
+        chart_ref: prometheus-community/kube-prometheus-stack
+        release_namespace: monitoring
+        kubeconfig: /home/ansible/.kube/config
+        state: present  # Ensures the release is installed/upgraded
+        update_repo_cache: true  # Fetch the latest chart versions
+        values_files:
+          - /opt/application_manifests/monitoring/values.yml
