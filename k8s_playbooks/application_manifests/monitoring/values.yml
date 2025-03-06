@@ -1,5 +1,8 @@
 prometheus:
-  prometheusSpec:
-    additionalScrapeConfigsConfigMap:
-      name: additional-scrape-configs
-      key: prom-config-map.yml
+  additionalScrapeConfigs:
+    enabled: true
+    config:
+      scrape_configs:
+      - job_name: 'external-nodes'
+        static_configs:
+        - targets: ['10.30.30.1:9100']  # Replace with your node IPs
