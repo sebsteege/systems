@@ -12,18 +12,6 @@
         group: ansible
         mode: '0644'
 
-    - name: Copy prom-config-map.yml to k8s-proxy
-      copy:
-        src: prom-config-map.yml
-        dest: /opt/application_manifests/monitoring/prom-config-map.yml
-        owner: ansible
-        group: ansible
-        mode: '0644'
-
-    - name: Apply promerthus config map
-      ansible.builtin.shell: |
-        kubectl apply --kubeconfig=/home/ansible/.kube/config -f /opt/application_manifests/monitoring/prom-config-map.yml
-
 # Uncomment below if changes were made to values.yml file
 
     - name: Deploy latest version of Prometheus chart inside monitoring namespace (and create it)
