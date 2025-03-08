@@ -12,6 +12,7 @@ tcp_ports:
   - 80
   - 8472 # Flannel
   - 8285 # Flannel
+  - 9100 # prometheus-node-exporter
 
 udp_ports:
   - 53 # DNS
@@ -19,3 +20,4 @@ udp_ports:
   - 6789
   - 8285 # Flannel
   - 8472 # Flannel
+  - 9100 # prometheus-node-exporter
