@@ -7,7 +7,7 @@ services:
       - PGID=1000 # Group ID
       - TZ=America/New_York # Your timezone
     volumes:
-      - /mnt/truenas/media/radarr/config/radarr-data:/config
+      - /data/radarr-data:/config
       - /mnt/truenas/media/radarr/movies:/movies
       - /mnt/truenas/media/downloads:/downloads
     ports:
