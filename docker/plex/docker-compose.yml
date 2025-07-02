@@ -39,7 +39,17 @@ services:
     #        - driver: nvidia
     #          count: 1
     #          capabilities: [gpu]
-        
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared_tunnel
+    restart: unless-stopped
+    #volumes:
+    #  - ./cloudflared:/etc/cloudflared # Mount a volume for config and credentials
+    environment:
+      - eyJhIjoiYzJkNmNmYzlkZDk0MjljYmQyZjIxYTM1YTI3NTliOWEiLCJ0IjoiNWJkZmFhOWMtZDE2Mi00NzBhLWE0NDctNGIwODE2MjE2ZTc3IiwicyI6Ik1qY3hPVFZtWlRBdE1Ua3pNUzAwTldZeExUaG1NVFF0TjJaaE9EQTBaREExWVRjMSJ9
+    networks:
+      media_network:
 networks:
   media_network:
     external: true
