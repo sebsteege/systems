@@ -13,3 +13,6 @@ services:
     ports:
       - 7878:7878 # radarr web UI port
     restart: unless-stopped
+    networks:
+      media_network:
+        ipv4_address: 172.20.0.3

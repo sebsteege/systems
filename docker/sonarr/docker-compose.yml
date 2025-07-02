@@ -13,3 +13,6 @@ services:
     ports:
       - 8989:8989 # sonarr web UI port
     restart: unless-stopped
+    networks:
+      media_network:
+        ipv4_address: 172.20.0.4

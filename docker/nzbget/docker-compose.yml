@@ -14,3 +14,6 @@ services:
     ports:
       - 6789:6789 # nzbget web UI port
     restart: unless-stopped
+    networks:
+      media_network:
+        ipv4_address: 172.20.0.2
