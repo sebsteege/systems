@@ -42,15 +42,15 @@ services:
 
   cloudflared:
     image: cloudflare/cloudflared:latest
-    container_name: cloudflared_tunnel
+    container_name: cloudflare-tunnel
     restart: unless-stopped
-    #volumes:
-    #  - ./cloudflared:/etc/cloudflared # Mount a volume for config and credentials
+    command: tunnel run
     environment:
-      - eyJhIjoiYzJkNmNmYzlkZDk0MjljYmQyZjIxYTM1YTI3NTliOWEiLCJ0IjoiNWJkZmFhOWMtZDE2Mi00NzBhLWE0NDctNGIwODE2MjE2ZTc3IiwicyI6Ik1qY3hPVFZtWlRBdE1Ua3pNUzAwTldZeExUaG1NVFF0TjJaaE9EQTBaREExWVRjMSJ9
+      - TUNNEL_TOKEN=eyJhIjoiYzJkNmNmYzlkZDk0MjljYmQyZjIxYTM1YTI3NTliOWEiLCJ0IjoiNWJkZmFhOWMtZDE2Mi00NzBhLWE0NDctNGIwODE2MjE2ZTc3IiwicyI6Ik1qY3hPVFZtWlRBdE1Ua3pNUzAwTldZeExUaG1NVFF0TjJaaE9EQTBaREExWVRjMSJ9
     networks:
       media_network:
         ipv4_address: 172.20.0.6
+        
 networks:
   media_network:
     external: true
