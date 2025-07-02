@@ -17,3 +17,7 @@ services:
     networks:
       media_network:
         ipv4_address: 172.20.0.2
+
+networks:
+  media_network:
+    external: true
