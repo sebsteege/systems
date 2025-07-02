@@ -49,7 +49,8 @@ services:
     environment:
       - eyJhIjoiYzJkNmNmYzlkZDk0MjljYmQyZjIxYTM1YTI3NTliOWEiLCJ0IjoiNWJkZmFhOWMtZDE2Mi00NzBhLWE0NDctNGIwODE2MjE2ZTc3IiwicyI6Ik1qY3hPVFZtWlRBdE1Ua3pNUzAwTldZeExUaG1NVFF0TjJaaE9EQTBaREExWVRjMSJ9
     networks:
-      - media_network
+      - media_network:
+          ipv4_address: 172.20.0.6
 networks:
   media_network:
     external: true
