@@ -9,7 +9,7 @@ services:
       - "80:80/tcp"
     environment:
       TZ: "America/New_York"
-      WEBPASSWORD: SeaBass7!
+      FTLCONF_webserver_api_password: "SeaBass7!"
       # Other optional environment variables can be added here, e.g.,
       # DNS_SERVERS: "1.1.1.1;1.0.0.1"
       # FTLCONF_DNS_LISTEN_INTERFACE: "eth0"
@@ -19,3 +19,10 @@ services:
     cap_add:
       - NET_ADMIN # Required for DHCP server if enabled
     restart: unless-stopped
+    networks:
+      services_network:
+        ipv4_address: 172.20.0.17
+
+networks:
+  services_network:
+    external: true
