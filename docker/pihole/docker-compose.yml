@@ -21,7 +21,7 @@ services:
     restart: unless-stopped
     networks:
       services_network:
-        ipv4_address: 172.20.0.17
+        ipv4_address: 172.20.0.18
 
 networks:
   services_network:
