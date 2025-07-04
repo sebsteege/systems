@@ -15,7 +15,7 @@ services:
       # FTLCONF_DNS_LISTEN_INTERFACE: "eth0"
     volumes:
       - "/data/pihole-data/config:/etc/pihole"
-      - "/data/pihole/data/etc-dnsmasq.d:/etc/dnsmasq.d"
+      - "/data/pihole-data/etc-dnsmasq.d:/etc/dnsmasq.d"
     cap_add:
       - NET_ADMIN # Required for DHCP server if enabled
     restart: unless-stopped

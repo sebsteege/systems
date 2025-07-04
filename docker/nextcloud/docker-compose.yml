@@ -22,7 +22,10 @@ services:
     links:
       - nextcloud-db
     volumes:
-      - /mnt/truenas/nextcloud-data:/var/www/html
+      - /mnt/truenas/nextcloud/nextcloud:/var/www/html
+      - /mnt/truenas/nextcloud/apps:/var/www/html/customer_apps
+      - /mnt/truenas/nextcloud/config:/var/www/html/config
+      - /mnt/truenas/nextcloud/data:/var/www/html/data
     environment:
       - MYSQL_PASSWORD=SeaBass7!
       - MYSQL_DATABASE=nextcloud
