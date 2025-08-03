@@ -1,0 +1,54 @@
+services:
+  npm:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: npm
+    restart: unless-stopped
+    ports:
+      # These ports are in format <host-port>:<container-port>
+      - '80:80' # Public HTTP Port
+      - '443:443' # Public HTTPS Port
+      - '81:81' # Admin Web Port
+      # Add any other Stream port you want to expose
+      # - '21:21' # FTP
+
+    #environment:
+      # Uncomment this if you want to change the location of
+      # the SQLite DB file within the container
+      # DB_SQLITE_FILE: "/data/database.sqlite"
+
+      # Uncomment this if IPv6 is not enabled on your host
+      # DISABLE_IPV6: 'true'
+
+    volumes:
+      - /data/npm-data:/data
+      - /data/letsencrypt:/etc/letsencrypt
+
+    networks:
+      - media_network
+      - nextcloud_network
+      - external
+      - authentik_network
+      - services_network
+
+  external-cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: external-cloudflare-tunnel
+    restart: unless-stopped
+    command: tunnel run
+    environment:
+      - TUNNEL_TOKEN=eyJhIjoiYzJkNmNmYzlkZDk0MjljYmQyZjIxYTM1YTI3NTliOWEiLCJ0IjoiNTQ3NmIzODctMmE0Yi00ODhlLTg0OGYtNzBiNWNjNTU3ZWJmIiwicyI6Ik5tSmtNVEl4TURJdE5XRXdaUzAwT1dNd0xUazBORFF0WW1JelpEWTJNR0ppWVdZNCJ9
+    
+    networks:
+      - external
+
+networks:
+  external:
+    external: true
+  media_network:
+    external: true
+  nextcloud_network:
+    external: true
+  authentik_network:
+    external: true
+  services_network:
+    external: true
