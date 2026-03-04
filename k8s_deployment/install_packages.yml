@@ -1,0 +1,29 @@
+- name: Install packages
+  hosts: k8s-cluster-1
+  become: yes
+  vars:
+
+  tasks:
+
+    - name: Add repo using key from URL
+      deb822_repository:
+        name: helm
+        types: deb
+        uris: https://packages.buildkite.com/helm-linux/helm-debian/any/
+        suites: any
+        components: main
+        architectures: amd64
+        signed_by: https://packages.buildkite.com/helm-linux/helm-debian/gpgkey
+
+    - name: Install common packages to be used in k8s-cluster-1
+      apt:
+        name:
+          - open-iscsi
+          - nfs-common
+          - util-linux
+          - helm
+          - etcd-client
+          - sysstat
+        state: present
+        update_cache: yes
+

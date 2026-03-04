@@ -1,0 +1,29 @@
+---
+- name: Configure NFS
+  hosts: k8s-cluster-1
+  become: true
+  gather_facts: False
+
+  tasks:
+
+    # Mount NFS Share
+
+    - name: Ensure nfs-common is installed
+      apt:
+        name: nfs-common
+        state: present
+
+    - name: Create a directory if it does not exist
+      ansible.builtin.file:
+        path: /mnt/
+        state: directory
+        mode: '0755'
+
+    - name: Mount NFS volumes
+      ansible.posix.mount:
+        src: "10.51.51.10:{{ item.mount }}"
+        path: "{{ item.mount_path }}"
+        opts: rw
+        state: mounted
+        fstype: nfs
+      loop: "{{ nfs_share }}"

@@ -1,0 +1,15 @@
+auto lo
+iface lo inet loopback
+
+{% for interface in interfaces %}
+allow-hotplug {{ interface.name }}
+iface {{ interface.name }} inet static
+    address {{ interface.ipaddress }}
+    netmask {{ interface.subnet }}
+{% if interface.gateway is defined %}
+    gateway {{ interface.gateway }}
+{% endif %}
+{% if interface.dns_server is defined %}
+    dns-nameserver {{ interface.dns_server }}
+{% endif %}
+{% endfor %}

@@ -1,0 +1,9 @@
+interfaces:
+  - name: ens18
+    ipaddress: 10.20.20.83
+    subnet: 255.255.255.0
+    gateway: 10.20.20.1
+    dns_server: 10.20.20.50
+  - name: ens19
+    ipaddress: 10.51.51.83
+    subnet: 255.255.255.0

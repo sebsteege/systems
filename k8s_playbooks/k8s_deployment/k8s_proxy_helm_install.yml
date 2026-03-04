@@ -1,9 +1,0 @@
-- name: Install helm
-  hosts: k8s-proxy
-  become: true
-
-  tasks:
-
-    - name: Install helm
-      ansible.builtin.shell: |
-        curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash

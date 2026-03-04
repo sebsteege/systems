@@ -2,43 +2,12 @@
 #
 # ansible-playbook -i inventory/pd_debian/hosts.yml debian_playbooks/debian_base_config.yml
 ---
-- name: Configure NFS, Hostname, and Nameserver
-  hosts: docker1
+- name: Configure Network, Hostname, and Nameserver
+  hosts: k8s-cluster-1
   become: true
   gather_facts: False
 
   tasks:
-
-    # Mount NFS Share
-
-    - name: Ensure nfs-common is installed
-      apt:
-        name: nfs-common 
-        state: present
-
-    - name: Create a directory if it does not exist
-      ansible.builtin.file:
-        path: /mnt/truenas
-        state: directory
-        mode: '0755'
-
-    - name: Mount NFS volumes
-      ansible.posix.mount:
-        src: 10.51.51.10:/mnt/Volume-01/Docker
-        path: /mnt/truenas
-        opts: rw
-        state: mounted
-        fstype: nfs
-      when: inventory_hostname not in groups['pd-k8s-workers']
-
-#    - name: Mount kubernetes NFS volumes
-#      ansible.posix.mount:
-#        src: 10.51.51.10:/mnt/Volume-01/kubernetes
-#        path: /mnt/
-#        opts: rw
-#        state: mounted
-#        fstype: nfs
-#      when: inventory_hostname in groups['pd-k8s-workers']
 
     # Configure System Hostname
 
@@ -51,5 +20,24 @@
     - name: Set nameserver or search domain
       ansible.builtin.lineinfile:
         path: /etc/resolv.conf
-        line: "nameserver 208.67.222.222" 
-        line: "search cv-labs.net" 
+        line: "nameserver 10.20.20.50" 
+        line: "search cvlab.net" 
+
+    # Configure interfaces
+
+    - name: Configure network interfaces
+      ansible.builtin.template:
+        src: templates/interfaces.j2
+        dest: /etc/network/interfaces
+        owner: root
+        group: root
+        mode: '0644'
+        backup: true
+      notify: Restart networking
+
+  handlers:
+
+    - name: Restart networking
+      ansible.builtin.service:
+        name: networking
+        state: restarted

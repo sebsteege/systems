@@ -4,7 +4,7 @@
 # ansible-playbook -i inventory/pd_debian/hosts.yml debian_playbooks/test_ssh_key.yml
 
 - name: Test SSH key-based authentication
-  hosts: k8s-proxy
+  hosts: k8s-cluster-1
   gather_facts: false
   become: yes
   remote_user: ansible

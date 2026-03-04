@@ -1,0 +1,31 @@
+nfs_share:
+  - mount: /mnt/Volume-01/k8s-cluster-1-share
+    mount_path: /mnt/k8s-cluster-1-share
+  - mount: /mnt/Volume-01/media
+    mount_path: /mnt/media
+ufw_tcp_ports:
+  - 22
+  - 80
+  - 443
+  - 6443
+  - 2379
+  - 2380
+  - 10250
+  - 10259
+  - 10257
+  - 30000:32767
+  - 179
+  - 5473
+  - 9090
+  - 9091
+  - 9500:9503
+  - 8500
+  - 10000:12000
+  - 3260
+  - 2049
+  - 7946
+ufw_udp_ports:
+  - 30000:32767
+  - 4789
+  - 53
+  - 7946
