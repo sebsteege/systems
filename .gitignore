@@ -1,2 +1,3 @@
 ansible_user_pass.yml
 docker_user_pass.yml
+k8s_deployment/old/
