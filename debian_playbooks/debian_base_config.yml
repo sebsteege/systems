@@ -1,9 +1,6 @@
-#
-#
-# ansible-playbook -i inventory/pd_debian/hosts.yml debian_playbooks/debian_base_config.yml
 ---
 - name: Configure Network, Hostname, and Nameserver
-  hosts: k8s-cluster-1
+  hosts: netbox
   become: true
   gather_facts: False
 

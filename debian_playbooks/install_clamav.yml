@@ -1,0 +1,16 @@
+---
+- name: Install clamav
+  hosts: all
+  become: true
+  gather_facts: False
+
+  tasks:
+
+    - name: Install Kubernetes Components
+      apt:
+        name:
+          - kubelet
+          - kubeadm
+          - kubectl
+        state: present
+        update_cache: yes
