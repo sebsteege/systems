@@ -1,5 +1,5 @@
 - name: Install docker
-  hosts: 10.20.20.207
+  hosts: gitlab
   become: yes
 
   tasks:
@@ -27,6 +27,7 @@
         name:
           - ca-certificates
           - curl
+          - gpg
         state: present
 
     - name: Add signing key

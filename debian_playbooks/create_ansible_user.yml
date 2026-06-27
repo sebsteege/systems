@@ -1,6 +1,6 @@
 ---
 - name: Create a user with sudo privileges
-  hosts: netbox
+  hosts: runner
   become: yes
   gather_facts: false
   remote_user: cvadmin

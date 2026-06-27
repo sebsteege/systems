@@ -2,7 +2,7 @@
 # This playbook disables password authentication for user ansible
 
 - name: Disable password-based SSH access and enable public key authentication
-  hosts: netbox
+  hosts: runner
   become: true
   gather_facts: False
 
